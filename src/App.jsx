@@ -14,7 +14,6 @@ function App() {
   }, [])
 
   useEffect(() => {
-    // const updatedTodos = JSON.parse(localStorage.getItem("todos") || "[]")
     localStorage.setItem("todos", JSON.stringify(todos))
   }, [todos])
 
@@ -24,8 +23,6 @@ function App() {
       { id: Date.now(), text: newTodoText, isDone: false },
     ];
     setTodos(updatedTodos);
-    // console.log(todos)
-    // localStorage.setItem("todos", JSON.stringify(todos))
   }
 
   return (

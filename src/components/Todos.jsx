@@ -84,10 +84,10 @@ function Todos({todos, setTodos}) {
     });
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex flex-col">
       <select
         name="isDone"
-        className="bg-zinc-500 text-white rounded-lg px-4 py-2 mb-4"
+        className=" w-fit bg-zinc-500 text-white my-2 rounded-lg px-4 py-2 items-end"
         onChange={(event) => setSelectOrder(event.target.value)}
       >
         <option value="all">
@@ -109,38 +109,39 @@ function Todos({todos, setTodos}) {
           })
           .map((todo) =>
             todo.id === editId ? (
-              <div key={todo.id} className="flex items-center gap-2">
+              <div key={todo.id} className="flex items-center justify-center gap-2">
                 <input
                   type="text"
-                  className="py-2 px-4 rounded-lg flex-1"
+                  className="flex bg-zinc-300 py-2 px-4 rounded-lg text-slate-900 w-fit"
                   value={editTodoText}
                   onChange={(event) => setEditTodoText(event.target.value)}
                 />
-                <button className="bg-green-600 hover:bg-green-500 text-white px-2 py-1 rounded-md" onClick={() => editTodo(editId, editTodoText)}>
+                <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md" onClick={() => editTodo(editId, editTodoText)}>
                   Ok
                 </button>
-                <button className="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded-md" onClick={() => setEditId()}>Cancel</button>
+                <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md" onClick={() => setEditId()}>Cancel</button>
               </div>
             ) : (
               <li
                 key={todo.id}
-                className={`grid grid-cols-2 gap-2 items-center bg-gray-800 p-4 rounded-lg shadow-md ${
-                    todo.isDone ? "opacity-50" : ""
+                className={`grid grid-cols-4 gap-2 place-items-center p-4 rounded-lg shadow-lg ${
+                    todo.isDone ? "bg-emerald-400" : "bg-slate-400"
                   }`}
               >
                 <strong
-                  className={`py-2 px-4 text-white text-lg ${todo.isDone && "line-through"}`}
+                  className={`col-span-3 py-2 px-4 text-center text-white text-lg ${todo.isDone && "line-through"}`}
                 >
                   {todo.text}
                 </strong>
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-end">
                   <button
-                    className="bg-green-600 hover:bg-green-500 text-white px-2 py-1 rounded-md"
+                    className={`${todo.isDone ? "bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md" : "bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md"}`}
                     onClick={() => handleIsDone(todo.id)}
                   >
-                    <CheckCircleIcon className="h-5 w-5" />
+                    <CheckCircleIcon className="h-8 w-8" />
                   </button>
                   <button
+                    className="bg-cyan-500 hover:bg-cyan-700 py-2 px-4 w-fit rounded-lg text-white text-xl"
                     onClick={() => {
                       handleEdit(todo.id);
                       setEditTodoText(todo.text);
@@ -148,7 +149,8 @@ function Todos({todos, setTodos}) {
                   >
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(todo.id)}>Delete</button>
+                  <button className="bg-rose-500 hover:bg-rose-700 py-2 px-4 w-fit rounded-lg text-white text-xl"
+                  onClick={() => handleDelete(todo.id)}>Delete</button>
                 </div>
               </li>
             )
